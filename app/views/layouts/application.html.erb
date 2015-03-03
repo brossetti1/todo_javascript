@@ -2,15 +2,16 @@
 <html>
 <head>
   <title>TodoJavascript</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "journal", :media => "all" %>
+  <%= yield(:page_stylesheet) if content_for?(:page_stylesheet) %>
+
 </head>
 <body>
 
-
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%= render partial: "shared/flash_messages", flash: flash %> 
 <%= yield %>
 
 </body>
