@@ -16,6 +16,7 @@
  *= require fontawesome
  */
 
+@import 'journal/variables.less';
 
 span.toDoBrand {
     font-size: 30px;
@@ -33,3 +34,16 @@ ul {
 form.navbar-form.navbar-left.navBarMenus {
 	margin-right: 90px;
 }
+
+.checkBox {
+	color: @brand-primary;
+}
+
+.checkBoxToggle {
+	color: @brand-success;
+}
+
+
+
+@import "index.css.less";
+@import "todos.css.less"

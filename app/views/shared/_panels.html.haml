@@ -1,24 +1,52 @@
-- if todo.finished == false
-  %div{ id: "topWrapperTodos_#{todo.id}"}
-    = link_to new_todo_path do
-      %i.fa.fa-plus-circle{ :style=>"float: left; padding-left: 40px; transform: scale(4); margin-top: 15px; padding-right: 310px; position: absolute;"}
-    %div.panel.panel-info
+
+-if current_user
+
+  - if todo.finished == false
+
+    %div{ id: "topWrapperTodos_#{todo.id}"}
+      = link_to new_todo_path,  style: "  float: left;padding-left: 15px;transform: scale(4);margin-top: 21px;color: #FFF;}" do
+        %i.fa.fa-plus-circle
+      %div.panel.panel-info
+        %div.panel-heading
+          %h3.panel-title{:style => "font-size: 35px;"}= todo.title
+        %div.list-group{:style =>  'list-style-type: none;'}
+          %div.panel-body{id: "todoWrapper_#{todo.id}" }
+            %li.a.list-group-item.active{ :style => 'font-size: 25px;'}
+              =link_to toggle_todo_path(todo), remote: true, method: :patch, :class => "btn btn-primary todo_#{todo.id} checkBox", :style => "background-color: #FFF; color: #EB6864; font-weight: bold; float: left;" do
+                %i.fa.fa-check-circle
+              =todo.body
+              =link_to 'edit Todo', edit_todo_path(todo), :class => "btn btn-primary", id: "edit-todo", :style => "background-color: #FFF; color: #EB6864; font-weight: bold; float: right"
+              =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", :confirm => 'Are you sure?', :style => "background-color: #FFF; color: green; font-weight: bold; float: right"
+
+  - elsif todo.finished == true
+    %div.panel.panel-success
       %div.panel-heading
-        %h3.panel-title= todo.title
-      %div.list-group
-        %div.panel-body{id: "todoWrapper_#{todo.id}" }
-          %li.a.list-group-item.active
-            =link_to 'finsihed Todo', todo_path(todo), method: :patch, :class => "btn btn-primary", :style => "background-color: #FFF; color: #EB6864; font-weight: bold"
-            =todo.body
-            =link_to 'edit Todo', edit_todo_path(todo), :class => "btn btn-primary", id: "edit-todo", :style => "background-color: #FFF; color: #EB6864; font-weight: bold;"
-            =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", id: id="<%= dom_id(@todo) %>", :confirm => 'Are you sure?', :style => "background-color: #FFF; color: green; font-weight: bold;"
-- elsif todo.finished == true
-  %div.panel.panel-success
-    %div.panel-heading
-      %h3.panel-title= todo.title
-        
-    %div.list-group
-      %div.panel-body
-      %li
-        =todo.body 
-        =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", :style => "background-color: #FFF; color: green; font-weight: bold"
+        %h3.panel-title{:style => "font-size: 35px;"}= todo.title
+          
+      %div.list-group{:style =>  'list-style-type: none;'}
+        %div.panel-body
+        %li{:style => 'font-size: 25px;'}
+          =todo.body 
+          =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", :style => "background-color: #FFF; color: green; font-weight: bold"
+-else
+
+  - if todo.finished == false
+
+    %div{ id: "topWrapperTodos_#{todo.id}"}
+      %div.panel.panel-info
+        %div.panel-heading
+          %h3.panel-title{:style => "font-size: 35px;"}= todo.title
+        %div.list-group{:style =>  'list-style-type: none;'}
+          %div.panel-body{id: "todoWrapper_#{todo.id}" }
+            %li.a.list-group-item.active{:style => 'font-size: 25px;'}
+              =todo.body
+
+  - elsif todo.finished == true
+    %div.panel.panel-success
+      %div.panel-heading
+        %h3.panel-title{:style => "font-size: 35px;"}= todo.title
+          
+      %div.list-group{:style =>  'list-style-type: none;'}
+        %div.panel-body
+        %li{:style => 'font-size: 25px;'}
+          =todo.body 

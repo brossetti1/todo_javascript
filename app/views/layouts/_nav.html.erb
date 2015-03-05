@@ -18,8 +18,10 @@
         <li><a href="#">Shared ToDo's</a></li>
       </ul>
       <div class="addNewBig">
-        <%= link_to new_todo_path do %>
-          <i class="fa fa-plus-circle AddButtonBig" style="float: left; padding-left: 40px; transform: scale(4); margin-top: 15px;"></i>
+        <%if user_signed_in? %>
+          <%= link_to new_todo_path do %>
+            <i class="fa fa-plus-circle AddButtonBig" style="float: left; padding-left: 40px; transform: scale(4); margin-top: 15px;"></i>
+          <% end %>
         <% end %>  
       </div>
       <ul class="nav navbar-pills navbar-right" style="float:right;">

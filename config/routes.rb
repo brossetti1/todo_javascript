@@ -37,8 +37,11 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  resources :todos, except: [:show, :index]
-  get '/todos/:id/finished', to: 'todos#toggle', as: :toggle
+  resources :todos, except: [:show, :index] do 
+    member {patch :toggle}
+  end
+
+  # get '/todos/:id/finished', to: 'todos#toggle', as: :toggle
   root 'todos#index'
 
   # Example of regular route:

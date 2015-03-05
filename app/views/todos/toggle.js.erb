@@ -1,0 +1,10 @@
+console.log("hi")
+$("#todo_" + "<%= @todo.id %>").on('click', function() {
+  if $("#todo_" + "<%= @todo.id %>").hasClass('checkBox')
+    $("#todo_" + "<%= @todo.id %>").toggleClass('checkBoxToggle', true );
+    $("#todo_" + "<%= @todo.id %>").toggleClass('checkBox', false );
+  else
+    $("#todo_" + "<%= @todo.id %>").toggleClass('checkBoxToggle', false );
+    $("#todo_" + "<%= @todo.id %>").toggleClass('checkBox', true );
+  }
+)

@@ -15,3 +15,6 @@
 //= require journal/loader
 //= require journal/bootswatch
 //= require turbolinks
+//= require_tree .
+
+

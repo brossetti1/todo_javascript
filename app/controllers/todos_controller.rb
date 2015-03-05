@@ -1,5 +1,5 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:edit, :update, :destroy]
+  before_action :set_todo, only: [:edit, :update, :destroy, :toggle]
 
   def index
     @current_user = current_user if current_user
