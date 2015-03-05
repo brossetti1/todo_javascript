@@ -13,21 +13,9 @@
  *= require_self
  *= require journal/loader
  *= require journal/bootswatch
+ *= require fontawesome
  */
 
-@import "bootswatch/journal/variables";
-
-/*// Then bootstrap itself*/
-@import "bootstrap";
-
-/*// Bootstrap body padding for fixed navbar*/
-body { padding-top: 60px; }
-
-/*// And finally bootswatch style itself*/
-@import "bootswatch//bootswatch";
-
-/*// Whatever application styles you have go last*/
-@import "base";
 
 span.toDoBrand {
     font-size: 30px;
@@ -41,4 +29,7 @@ li.styleTodoCount {
 
 ul {
     list-style-type: none;
+}
+form.navbar-form.navbar-left.navBarMenus {
+	margin-right: 90px;
 }

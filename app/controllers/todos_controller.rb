@@ -1,15 +1,9 @@
 class TodosController < ApplicationController
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: [:edit, :update, :destroy]
 
-  # GET /todos
-  # GET /todos.json
   def index
-    @todos = Todo.all
-  end
-
-  # GET /todos/1
-  # GET /todos/1.json
-  def show
+    @current_user = current_user if current_user
+    @users = User.all
   end
 
   # GET /todos/new
@@ -17,23 +11,27 @@ class TodosController < ApplicationController
     @todo = Todo.new
   end
 
-  # GET /todos/1/edit
-  def edit
-  end
-
   # POST /todos
   # POST /todos.json
   def create
     @todo = Todo.new(todo_params)
-
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
-        format.json { render :show, status: :created, location: @todo }
+        flash[:notice] = 'Todo was successfully created.'
+        format.html { redirect_to "home/index", status: :ok }
+        format.js { }
       else
         format.html { render :new }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+    # GET /todos/1/edit
+  def edit
+    # binding.pry
+    respond_to do |format|
+      format.html { render :edit}
+      format.js {}
     end
   end
 
@@ -41,12 +39,26 @@ class TodosController < ApplicationController
   # PATCH/PUT /todos/1.json
   def update
     respond_to do |format|
-      if @todo.update(todo_params)
-        format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
+      if @todo.save
+        flash[:notice] = "#{@todo.title} has been marked finished"
+        format.html { redirect_to 'home/index', status: :ok }
+        format.js { }
       else
         format.html { render :edit }
-        format.json { render json: @todo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def toggle
+    @todo.finished == false ? toggle = true : toggle = false
+    @todo.update_attributes(finished: toggle)
+    respond_to do |format|
+      if @todo.finished == toggle
+        format.html { redirect_to 'home/index', status: :ok }
+        format.js { }
+      else 
+        flash[:alert] = "the todo was not marked finished" 
+        format.html { redirect_to 'home/index', status: :unprocessed } 
       end
     end
   end
@@ -56,8 +68,9 @@ class TodosController < ApplicationController
   def destroy
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
-      format.json { head :no_content }
+      flash[:notice] = "#{@todo.title} was deleted"
+      format.html { redirect_to 'home/index', notice: 'Todo was successfully destroyed.' }
+      format.js { }
     end
   end
 

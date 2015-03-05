@@ -16,24 +16,38 @@
 #                          PATCH  /users(.:format)               devise/registrations#update
 #                          PUT    /users(.:format)               devise/registrations#update
 #                          DELETE /users(.:format)               devise/registrations#destroy
+#                    todos GET    /todos(.:format)               todos#index
+#                          POST   /todos(.:format)               todos#create
+#                 new_todo GET    /todos/new(.:format)           todos#new
+#                edit_todo GET    /todos/:id/edit(.:format)      todos#edit
+#                     todo PATCH  /todos/:id(.:format)           todos#update
+#                          PUT    /todos/:id(.:format)           todos#update
+#                          DELETE /todos/:id(.:format)           todos#destroy
+#                   toggle GET    /todos/:id/finished(.:format)  todos#toggle
+#                user_tags POST   /users/tags(.:format)          users#tag_user
 #                     root GET    /                              home#index
 #
 
 Rails.application.routes.draw do
-  resources :todos
+  
+  #rescue from activerecrod::record not found
+  #rescue from access denied::
 
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  resources :todos, except: [:show]
+  get '/todos/:id/finished', to: 'todos#toggle', as: :toggle
+  post '/users/tags/', to: 'users#tag_user', as: :user_tags
+  root 'todos#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
