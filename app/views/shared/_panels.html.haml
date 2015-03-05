@@ -8,10 +8,10 @@
       %div.panel-body{id: "todoWrapper_#{todo.id}" }
         
         %li.a.list-group-item.active
-          =link_to 'finsihed Todo', todo_path(todo), method: :patch, :class => "btn btn-primary", remote: true, :style => "background-color: #FFF; color: #EB6864; font-weight: bold"
+          =link_to 'finsihed Todo', todo_path(todo), method: :patch, :class => "btn btn-primary", :style => "background-color: #FFF; color: #EB6864; font-weight: bold"
           =todo.body
-          =link_to 'edit Todo', edit_todo_path(todo), :class => "btn btn-primary", remote: true, id: "edit-todo", :style => "background-color: #FFF; color: #EB6864; font-weight: bold"
-          =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", id: "delete#{todo.id}", :confirm => 'Are you sure?',  remote: true, :style => "background-color: #FFF; color: green; font-weight: bold"
+          =link_to 'edit Todo', edit_todo_path(todo), :class => "btn btn-primary", id: "edit-todo", :style => "background-color: #FFF; color: #EB6864; font-weight: bold;"
+          =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", id: "delete#{todo.id}", :confirm => 'Are you sure?', :style => "background-color: #FFF; color: green; font-weight: bold;"
 - elsif todo.finished == true
   %div.panel.panel-success
     %div.panel-heading
@@ -21,4 +21,4 @@
       %div.panel-body
       %li
         =todo.body 
-        =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", remote: true, :style => "background-color: #FFF; color: green; font-weight: bold"
+        =link_to 'delete Todo', todo_path(todo), method: :delete, :class => "btn btn-success", :style => "background-color: #FFF; color: green; font-weight: bold"

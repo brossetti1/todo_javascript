@@ -24,8 +24,7 @@
 #                          PUT    /todos/:id(.:format)           todos#update
 #                          DELETE /todos/:id(.:format)           todos#destroy
 #                   toggle GET    /todos/:id/finished(.:format)  todos#toggle
-#                user_tags POST   /users/tags(.:format)          users#tag_user
-#                     root GET    /                              home#index
+#                     root GET    /                              todos#index
 #
 
 Rails.application.routes.draw do
@@ -38,9 +37,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  resources :todos, except: [:show]
+  resources :todos, except: [:show, :index]
   get '/todos/:id/finished', to: 'todos#toggle', as: :toggle
-  post '/users/tags/', to: 'users#tag_user', as: :user_tags
   root 'todos#index'
 
   # Example of regular route:

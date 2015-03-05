@@ -8,17 +8,19 @@ class TodosController < ApplicationController
 
   # GET /todos/new
   def new
+    binding.pry
     @todo = Todo.new
   end
 
   # POST /todos
   # POST /todos.json
   def create
+    binding.pry
     @todo = Todo.new(todo_params)
     respond_to do |format|
       if @todo.save
         flash[:notice] = 'Todo was successfully created.'
-        format.html { redirect_to "home/index", status: :ok }
+        format.html { redirect_to root_path }
         format.js { }
       else
         format.html { render :new }
@@ -28,7 +30,7 @@ class TodosController < ApplicationController
 
     # GET /todos/1/edit
   def edit
-    # binding.pry
+    # binding.pry 
     respond_to do |format|
       format.html { render :edit}
       format.js {}
@@ -41,7 +43,7 @@ class TodosController < ApplicationController
     respond_to do |format|
       if @todo.save
         flash[:notice] = "#{@todo.title} has been marked finished"
-        format.html { redirect_to 'home/index', status: :ok }
+        format.html { redirect_to root_path }
         format.js { }
       else
         format.html { render :edit }
@@ -54,11 +56,11 @@ class TodosController < ApplicationController
     @todo.update_attributes(finished: toggle)
     respond_to do |format|
       if @todo.finished == toggle
-        format.html { redirect_to 'home/index', status: :ok }
+        format.html { redirect_to root_path }
         format.js { }
       else 
         flash[:alert] = "the todo was not marked finished" 
-        format.html { redirect_to 'home/index', status: :unprocessed } 
+        format.html { redirect_to root_path, status: :unprocessed } 
       end
     end
   end
@@ -69,7 +71,7 @@ class TodosController < ApplicationController
     @todo.destroy
     respond_to do |format|
       flash[:notice] = "#{@todo.title} was deleted"
-      format.html { redirect_to 'home/index', notice: 'Todo was successfully destroyed.' }
+      format.html { redirect_to root_path }
       format.js { }
     end
   end
