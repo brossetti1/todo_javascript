@@ -8,14 +8,16 @@ class TodosController < ApplicationController
 
   # GET /todos/new
   def new
-    binding.pry
     @todo = Todo.new
+    respond_to do |format|
+      format.html { redirect_to root_path}
+      format.js { }
+    end
   end
 
   # POST /todos
   # POST /todos.json
   def create
-    binding.pry
     @todo = Todo.new(todo_params)
     respond_to do |format|
       if @todo.save
@@ -30,7 +32,6 @@ class TodosController < ApplicationController
 
     # GET /todos/1/edit
   def edit
-    # binding.pry 
     respond_to do |format|
       format.html { render :edit}
       format.js {}
